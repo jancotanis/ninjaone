@@ -18,7 +18,7 @@ describe 'client' do
     @client.login
   end
   it '#0 touch config' do
-    cfg = @client.config
+    @client.config
   end
   it '#1 GET /v2/contacts' do
     c = @client.contacts
@@ -35,12 +35,12 @@ describe 'client' do
    :devices_detailed, :enabled_notification_channels, :notification_channels, :groups, :locations, :roles, :tasks,
    :software_products, :users, :user_end_users, :user_roles, :user_technicians].each do |method|
     it "#2 all System methods client.#{method}()" do
-      result = @client.send(method)
+      _result = @client.send(method)
     end
   end
   it '#3 GET /v2/devices/search' do
     # not sure what th query format is
-    d = @client.search_devices('WORKSTATION')
+    _d = @client.search_devices('WORKSTATION')
   end
   it '#4 GET /v2/organization(s)' do
     o = @client.organizations
