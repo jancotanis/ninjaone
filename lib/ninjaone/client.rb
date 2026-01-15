@@ -46,6 +46,8 @@ module NinjaOne
     # such as managing backups and handling alerts.
     include NinjaOne::Client::System
     include NinjaOne::Client::Organizations
+    include NinjaOne::Client::Backup
+    include NinjaOne::Client::Devices
 
     # Constructs the full API URL for a given path.
     #
