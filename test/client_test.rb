@@ -57,4 +57,46 @@ describe 'client' do
       _location_backup = @client.organization_backup_usage_by_location(id, locations.first.id) if locations.any?
     end
   end
+  describe NinjaOne::Client::Devices do
+    it '#5 GET /v2/device/{id}' do
+      # touch and expect 404
+      assert_raises (Faraday::ResourceNotFound) do
+        @client.device(0)
+      end
+    end
+    it '#5 defines all expected dynamic methods' do
+      methods = [
+        :device_jobs,
+        :device_activities,
+        :device_alerts,
+        :device_disks,
+        :device_processors,
+        :device_software,
+        :device_volumes,
+        :device_windows_services,
+        :device_custom_fields,
+        :device_os_patch_installs,
+        :device_software_patch_installs,
+        :device_last_logged_on_user,
+        :device_network_interfaces,
+        :device_os_patches,
+        :device_software_patches
+      ]
+
+      methods.each do |method|
+        _(@client).must_respond_to(method)
+      end
+    end
+  end
+  describe NinjaOne::Client::Backup do
+    it '#6 GET /v2/backup/jobs' do
+      jobs = @client.backup_jobs
+      failed_jobs = @client.backup_jobs(sf:'status = FAILED')
+      _(jobs.count).must_be :>=, failed_jobs.count
+    end
+    it '#6 GET /v2/backup/integrity-check-jobs' do
+      ic = @client.backup_integrity_check_jobs
+      assert ic.count >=0, 'we have an array with possible integrity checks'
+    end
+  end
 end

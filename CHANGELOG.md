@@ -4,3 +4,7 @@
 
 - Initial release
 
+## [0.2.0] - 2026-1-15
+
+- Added backup and devices api group
+

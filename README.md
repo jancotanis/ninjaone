@@ -122,6 +122,44 @@ org_devices = client.organization_devices(org.id)
 |.organization_locations_backup_usage(id)|Organization location backup usage|
 |.organization_backup_usage_by_location(id, location_id)|Organization locations backup usage|
 
+### Backup
+
+All apis related to backup
+
+```ruby
+# get failed jobs using status filter
+failed_jobs = client.backup_jobs(sf:'status = FAILED')
+```
+
+|Resource|API endpoint|
+|:--|:--|
+|`backup_jobs(params)`|Returns list of backup jobs. Params is a hash for filtering the result|
+|`backup_integrity_check_jobs(params)`|Returns a list of integrity check jobs|
+
+### Devices
+
+All apis related to devices.
+
+| Resource | API endpoint |
+|:--|:--|
+| `device(id, params = {})` | Retrieves the details of a single device by its device ID. |
+| `device_jobs(id, params = {})` | Retrieves all jobs associated with the specified device. |
+| `device_activities(id, params = {})` | Retrieves activities for the specified device (e.g. filtered using `since`). |
+| `device_alerts(id, params = {})` | Retrieves alerts related to the specified device. |
+| `device_disks(id, params = {})` | Retrieves disk information for the specified device. |
+| `device_processors(id, params = {})` | Retrieves processor information for the specified device. |
+| `device_software(id, params = {})` | Retrieves installed software for the specified device. |
+| `device_volumes(id, params = {})` | Retrieves volume information for the specified device. |
+| `device_windows_services(id, params = {})` | Retrieves Windows services for the specified device. |
+| `device_custom_fields(id, params = {})` | Retrieves custom fields associated with the specified device. |
+| `device_os_patch_installs(id, params = {})` | Retrieves operating system patch installation records for the specified device. |
+| `device_software_patch_installs(id, params = {})` | Retrieves software patch installation records for the specified device. |
+| `device_last_logged_on_user(id, params = {})` | Retrieves information about the last logged-on user of the device. |
+| `device_network_interfaces(id, params = {})` | Retrieves network interface information for the specified device. |
+| `device_os_patches(id, params = {})` | Retrieves available or installed operating system patches for the device. |
+| `device_software_patches(id, params = {})` | Retrieves available or installed software patches for the device. |
+| `device_policy_overrides(id, params = {})` | Retrieves policy overrides applied to the specified device. |
+
 
 ## Contributing
 
