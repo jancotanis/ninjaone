@@ -27,12 +27,13 @@ describe 'client' do
       contact = @client.contact(c.first.id)
       assert_equals c.first.name, contact.name
     else
-      # no contact found
-#      @client.contact(-1)
+      assert_raises (Faraday::ResourceNotFound) do
+        @client.contact(0)
+      end
     end
   end
   [:organizations_detailed, :policies, :jobs, :activities, :alerts, :automation_scripts, :devices,
-   :devices_detailed, :enabled_notification_channels, :notification_channels, :groups, :locations, :roles, :tasks,
+   :devices_detailed, :notification_channels_enabled, :notification_channels, :groups, :locations, :roles, :tasks,
    :software_products, :users, :user_end_users, :user_roles, :user_technicians].each do |method|
     it "#2 all System methods client.#{method}()" do
       _result = @client.send(method)
@@ -63,6 +64,10 @@ describe 'client' do
       assert_raises (Faraday::ResourceNotFound) do
         @client.device(0)
       end
+      # get subset
+      devices = @client.devices(nodeClass:'WNDOWS_SERVER')
+      device = @client.device(devices.first.id)
+      _(device.systemName).must_equal devices.first.systemName, 'check device systemname'
     end
     it '#5 defines all expected dynamic methods' do
       methods = [

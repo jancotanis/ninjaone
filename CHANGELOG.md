@@ -8,3 +8,7 @@
 
 - Added backup and devices api group
 
+## [0.2.1] - 2026-1-16
+
+- Simplify api endpoint definition
+

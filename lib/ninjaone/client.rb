@@ -9,33 +9,49 @@ module NinjaOne
   # @note All methods are grouped in separate modules for better organization and follow the structure provided in the official API documentation.
   # @see https://developers.skykick.com/Guides/Authentication
   class Client < API
+
+    # Constructs url resource name from url path
+    #
+    # @param path [String] Resource name
+    # @return [String] translated from /- to  _
+    def self.resource_to_name(path)
+      path.to_s.gsub(/[-\/]/,'_')
+    end
+
     # Dynamically defines methods for interacting with NinjaOne API resources.
     #
     # Depending on the arguments, this will define methods to:
-    # - Fetch all records for a resource
-    # - Fetch a specific record by ID
+    # - Fetch all records for the given scope
+    # - Fetch a resource specific record by ID
     #
-    # @param method [Symbol] The method name for fetching all records.
-    # @param singular_method [Symbol, nil] The method name for fetching a single record by ID. Optional.
-    # @param path [String] The API path for the resource. Defaults to the method name.
+    # @param scope [Symbol] The method name for fetching all records.
+    # @param resource [String] If given, fetches all records for scope by id. If empty string, it will load single scope record
+    #
+    # Paging is not supported.
     #
     # @example Defining endpoints
     #   api_endpoint :companies, :company
     #   # Defines:
     #   # - `companies(params = {})` to fetch all companies.
     #   # - `company(id, params = {})` to fetch a single company by ID.
-    def self.api_endpoint(method, singular_method = nil, path = method.to_s.tr('_', '-'))
-      # Define method to fetch all records
-      send(:define_method, method) do |params = {}|
-        get_paged(api_url(path), params)
-      end
-      # Define method to fetch a single record by ID
-      if singular_method
-        send(:define_method, singular_method) do |id, params = {}|
-          get(api_url("#{singular_method}/#{id}"), params)
+    def self.define_endpoint(scope, resource = nil)
+      if resource
+        name = self.resource_to_name(scope)
+        name = "#{name}_#{self.resource_to_name(resource)}" if resource && !resource.empty?
+        # change to nil if resource is empty so we ar eable to generate /scope/id/resource
+        # but also /scope/id without training / 
+        resource = resource&.empty? ? nil : resource
+        send(:define_method, name) do |id, params = {}|
+          get(api_url([scope, id, resource].compact.join('/')), params)
+        end
+      else
+        name = self.resource_to_name(scope)
+        send(:define_method, name) do |params = {}|
+          get(api_url(scope), params)
         end
       end
     end
+
 
     # Dynamically require all files in the `client` directory.
     # This will load additional API modules as separate files for better modularity and code organization.
@@ -56,6 +72,5 @@ module NinjaOne
     def api_url(path)
       "/v2/#{path}"
     end
-
   end
 end

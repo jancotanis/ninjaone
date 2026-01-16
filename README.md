@@ -66,7 +66,7 @@ client.login
 
 |Resource|API endpoint|
 |:--|:--|
-|.auth_token or .login|https://app.ninjarmm.com/apidocs/?links.active=authorization|
+|`login`|https://app.ninjarmm.com/apidocs/?links.active=authorization|
 
 ### System
 
@@ -78,29 +78,29 @@ subscriptions = client.subscriptions
 
 |Resource|API endpoint|
 |:--|:--|
-|contacts, contact(id)|List contact and get contact details|
-|organizations|list organizations|
-|policies|list policies|
-|jobs|list active jobs|
-|activities|list activities|
-|alerts|List active alerts (triggered conditions)|
-|automation_scripts|List available automation scripts|
-|device_custom_fields|List device custom fields|
-|devices|List devices|
-|devices_detailed|List devices(deatiled)|
-|enabled_notification_channels|List enabled notification channels|
-|notification_channels|List all notification channels|
-|notification_channels_detailed|List all notification channels detailed|
-|groups|List all groups (saved searches)|
-|locations|List all locations|
-|roles|List device roles|
-|tasks|List scheduled tasks|
-|software_products|List supported 3rd party software|
-|users|List users|
-|search_devices(query_string)|Find devices|
-|user_end_users|End user list|
-|user_technicians|Technicians list|
-|user_roles|Get user roles|
+|`contacts`, `contact(id)`|List contact and get contact details|
+|`organizations`|list organizations|
+|`policies`|list policies|
+|`jobs`|list active jobs|
+|`activities`|list activities|
+|`alerts`|List active alerts (triggered conditions)|
+|`automation_scripts`|List available automation scripts|
+|`device_custom_fields`|List device custom fields|
+|`devices`|List devices|
+|`devices_detailed`|List devices(deatiled)|
+|`notification_channels_enabled`|List enabled notification channels|
+|`notification_channels`|List all notification channels|
+|`notification_channels_detailed`|List all notification channels detailed|
+|`groups`|List all groups (saved searches)|
+|`locations`|List all locations|
+|`roles`|List device roles|
+|`tasks`|List scheduled tasks|
+|`software_products`|List supported 3rd party software|
+|`users`|List users|
+|`search_devices(query_string)`|Find devices|
+|`user_end_users`|End user list|
+|`user_technicians`|Technicians list|
+|`user_roles`|Get user roles|
 
 ### Organizations
 
@@ -114,13 +114,13 @@ org_devices = client.organization_devices(org.id)
 
 |Resource|API endpoint|
 |:--|:--|
-|.organizations,.organization(id)|List organizations or get one by id|
-|.organization_locations(id)|Organization locations|
-|.organization_end_users(id)|List users|
-|.organization_custom_fields(id)|Organization custom fields|
-|.organization_devices(id)|Organization devices|
-|.organization_locations_backup_usage(id)|Organization location backup usage|
-|.organization_backup_usage_by_location(id, location_id)|Organization locations backup usage|
+|`organizations`,`organization(id)`|List organizations or get one by id|
+|`organization_locations(id)`|Organization locations|
+|`organization_end_users(id)`|List users|
+|`organization_custom_fields(id)`|Organization custom fields|
+|`organization_devices(id)`|Organization devices|
+|`organization_locations_backup_usage(id)`|Organization location backup usage|
+|`organization_backup_usage_by_location(id, location_id)`|Organization locations backup usage|
 
 ### Backup
 
